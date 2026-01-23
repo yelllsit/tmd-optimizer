@@ -1,0 +1,24 @@
+{
+  "name": "tmd-opti-license-bot",
+  "version": "1.0.0",
+  "description": "Discord bot for generating TMD Opti license keys",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "dev": "node bot.js"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "license",
+    "tmd-opti"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "crypto-js": "^4.2.0",
+    "discord.js": "^14.25.1",
+    "dotenv": "^17.2.3"
+  }
+}

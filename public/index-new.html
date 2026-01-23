@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
+    <title>TMD Opti</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Demo License 2FA Modal -->
+    <div id="demoLicenseModal" class="modal hidden">
+        <div class="modal-overlay" id="demoModalOverlay"></div>
+        <div class="modal-content-center">
+            <div class="modal-header">
+                <h2>Generate Demo License</h2>
+                <button class="modal-close" id="closeDemoModal">✕</button>
+            </div>
+
+            <p class="info-text" style="margin-bottom: 20px;">1 Day trial - Email verification required</p>
+
+            <!-- Step 1: Email Input -->
+            <div id="emailStep">
+                <input type="email" id="emailInput" placeholder="your@email.com" class="license-input">
+                <button id="sendCodeBtn" class="btn btn-primary" style="width: 100%;">Send Verification Code</button>
+            </div>
+
+            <!-- Step 2: Code Verification (hidden initially) -->
+            <div id="codeStep" class="hidden">
+                <div class="code-notice">
+                    <p style="margin-bottom: 8px;">✉️ Verification code sent to:</p>
+                    <p style="font-weight: 600; margin-bottom: 15px;"><span id="sentEmail"></span></p>
+                    <div id="codeDisplay" class="code-display-box">
+                        <p class="info-text" style="margin-bottom: 5px;">Demo Code:</p>
+                        <p class="demo-code"><strong id="displayCode"></strong></p>
+                        <p class="info-text" style="font-size: 11px; margin-top: 5px;">(In production, check your email)</p>
+                    </div>
+                </div>
+                <input type="text" id="codeInput" placeholder="Enter 6-digit code" class="license-input" maxlength="6">
+                <button id="verifyCodeBtn" class="btn btn-primary" style="width: 100%; margin-bottom: 10px;">Verify & Generate License</button>
+                <button id="resendCodeBtn" class="btn-link">← Resend Code</button>
+            </div>
+
+            <div id="demoLicenseMessage" class="message"></div>
+        </div>
+    </div>
+
+    <!-- License Modal -->
+    <div id="licenseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>TMD Opti</h2>
+                <p class="subtitle">Video Optimizer</p>
+            </div>
+
+            <div class="license-form">
+                <h3>Enter License Key</h3>
+                <input type="text" id="licenseInput" placeholder="XXXX-XXXX-XXXX-XXXX" class="license-input">
+
+                <div class="remember-me-container">
+                    <label class="remember-me-label">
+                        <input type="checkbox" id="rememberMe" class="remember-checkbox">
+                        <span>Remember me for 3 days</span>
+                    </label>
+                </div>
+
+                <button id="validateBtn" class="btn btn-primary">Activate License</button>
+                <div id="licenseMessage" class="message"></div>
+                <div id="licenseInfo" class="license-info-box hidden"></div>
+
+                <button id="buyLicenseBtn" class="btn btn-secondary" style="margin-top: 16px;">
+                    💎 Buy License Key
+                </button>
+
+                <div class="divider">OR</div>
+
+                <button id="showDemoLicenseBtn" class="btn btn-secondary" style="width: 100%;">
+                    🎯 Generate Demo License (1 Day Trial)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="mainApp" class="hidden">
+        <header class="app-header">
+            <h1>TMD Opti</h1>
+            <div class="license-info">
+                <span id="licenseStatus"></span>
+            </div>
+        </header>
+
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div class="step" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-label">Mode</div>
+            </div>
+            <div class="step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-label">Files</div>
+            </div>
+            <div class="step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-label">Settings</div>
+            </div>
+            <div class="step" data-step="4">
+                <div class="step-number">4</div>
+                <div class="step-label">Process</div>
+            </div>
+        </div>
+
+        <main class="app-main">
+            <!-- Step 1: Mode Selection -->
+            <section id="step1" class="wizard-step active">
+                <h2 class="step-title">Choose Processing Mode</h2>
+                <p class="step-description">Select the type of optimization for your videos</p>
+
+                <div class="mode-selector">
+                    <div class="mode-card" data-mode="quality">
+                        <div class="mode-icon">✨</div>
+                        <h3>Quality Enhancement</h3>
+                        <p class="mode-desc">Enhance video quality with multiple preset options</p>
+                        <ul class="mode-features">
+                            <li>H.264 codec</li>
+                            <li>30fps standard</li>
+                            <li>Standard, High Quality, 4K options</li>
+                            <li>Best for general use</li>
+                        </ul>
+                        <button class="btn btn-primary select-mode-btn">Select Mode</button>
+                    </div>
+
+                    <div class="mode-card" data-mode="resolution">
+                        <div class="mode-icon">🎯</div>
+                        <h3>Resolution Optimizer</h3>
+                        <p class="mode-desc">Optimize for specific resolutions with highest quality</p>
+                        <ul class="mode-features">
+                            <li>H.265 (HEVC) codec</li>
+                            <li>60fps smooth playback</li>
+                            <li>1440×1080 or 1080×1440</li>
+                            <li>Advanced upscaling</li>
+                        </ul>
+                        <button class="btn btn-primary select-mode-btn">Select Mode</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 2: File Selection -->
+            <section id="step2" class="wizard-step">
+                <h2 class="step-title">Add Your Videos</h2>
+                <p class="step-description">Drag and drop or browse to add video files</p>
+
+                <div class="drop-zone" id="dropZone">
+                    <div class="drop-zone-content">
+                        <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        <h3>Drop videos here</h3>
+                        <p>or click to browse</p>
+                        <button class="btn btn-primary" id="browseBtn">Browse Files</button>
+                    </div>
+                </div>
+
+                <div class="files-list" id="filesList"></div>
+
+                <div class="wizard-actions">
+                    <button class="btn btn-secondary" id="backToMode">← Back</button>
+                    <button class="btn btn-primary" id="continueToSettings" disabled>Continue →</button>
+                </div>
+            </section>
+
+            <!-- Step 3: Settings (Quality Enhancement) -->
+            <section id="step3-quality" class="wizard-step">
+                <h2 class="step-title">Quality Enhancement Settings</h2>
+                <p class="step-description">Choose your quality preset</p>
+
+                <div class="preset-options">
+                    <div class="preset-card" data-preset="standard">
+                        <h4>Standard Quality</h4>
+                        <div class="preset-specs">
+                            <span>1080p</span>
+                            <span>30fps</span>
+                            <span>H.264</span>
+                            <span>4 Mbps</span>
+                        </div>
+                        <p>Good for everyday use</p>
+                    </div>
+
+                    <div class="preset-card" data-preset="high">
+                        <h4>High Quality</h4>
+                        <div class="preset-specs">
+                            <span>1080p</span>
+                            <span>30fps</span>
+                            <span>H.264</span>
+                            <span>6 Mbps</span>
+                        </div>
+                        <p>Better quality, larger files</p>
+                    </div>
+
+                    <div class="preset-card" data-preset="4k">
+                        <h4>4K Quality</h4>
+                        <div class="preset-specs">
+                            <span>2160p</span>
+                            <span>30fps</span>
+                            <span>H.264</span>
+                            <span>15 Mbps</span>
+                        </div>
+                        <p>Maximum quality</p>
+                    </div>
+                </div>
+
+                <div class="output-section">
+                    <label>Output Directory:</label>
+                    <div class="dir-selector">
+                        <input type="text" id="outputDirQuality" readonly placeholder="Select output folder">
+                        <button class="btn btn-secondary" id="selectDirQuality">Browse</button>
+                    </div>
+                </div>
+
+                <div class="wizard-actions">
+                    <button class="btn btn-secondary" id="backToFiles1">← Back</button>
+                    <button class="btn btn-primary" id="continueToProcess1">Continue →</button>
+                </div>
+            </section>
+
+            <!-- Step 3: Settings (Resolution Optimizer) -->
+            <section id="step3-resolution" class="wizard-step">
+                <h2 class="step-title">Resolution Optimizer Settings</h2>
+                <p class="step-description">Choose your target resolution</p>
+
+                <div class="preset-options">
+                    <div class="preset-card" data-preset="horizontal">
+                        <svg class="orientation-icon" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="96" height="56" rx="4"/>
+                            <line x1="20" y1="30" x2="80" y2="30"/>
+                            <line x1="50" y1="15" x2="50" y2="45"/>
+                        </svg>
+                        <h4>Horizontal</h4>
+                        <div class="preset-specs">
+                            <span>1440×1080</span>
+                            <span>60fps</span>
+                            <span>H.265</span>
+                            <span>8 Mbps</span>
+                        </div>
+                    </div>
+
+                    <div class="preset-card" data-preset="vertical">
+                        <svg class="orientation-icon" viewBox="0 0 60 100" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="56" height="96" rx="4"/>
+                            <line x1="30" y1="20" x2="30" y2="80"/>
+                            <line x1="15" y1="50" x2="45" y2="50"/>
+                        </svg>
+                        <h4>Vertical</h4>
+                        <div class="preset-specs">
+                            <span>1080×1440</span>
+                            <span>60fps</span>
+                            <span>H.265</span>
+                            <span>8 Mbps</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="output-section">
+                    <label>Output Directory:</label>
+                    <div class="dir-selector">
+                        <input type="text" id="outputDirResolution" readonly placeholder="Select output folder">
+                        <button class="btn btn-secondary" id="selectDirResolution">Browse</button>
+                    </div>
+                </div>
+
+                <div class="wizard-actions">
+                    <button class="btn btn-secondary" id="backToFiles2">← Back</button>
+                    <button class="btn btn-primary" id="continueToProcess2">Continue →</button>
+                </div>
+            </section>
+
+            <!-- Step 4: Processing -->
+            <section id="step4" class="wizard-step">
+                <h2 class="step-title">Processing Videos</h2>
+                <p class="step-description">Please wait while we optimize your videos</p>
+
+                <div class="processing-container">
+                    <div class="processing-summary">
+                        <div class="summary-item">
+                            <span class="summary-label">Mode:</span>
+                            <span id="processingMode" class="summary-value"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Preset:</span>
+                            <span id="processingPreset" class="summary-value"></span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Files:</span>
+                            <span id="processingCount" class="summary-value"></span>
+                        </div>
+                    </div>
+
+                    <div id="processingList" class="processing-list"></div>
+
+                    <div class="wizard-actions">
+                        <button class="btn btn-secondary" id="cancelProcessing">Cancel</button>
+                        <button class="btn btn-primary hidden" id="finishProcessing">Finish</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="wizard.js"></script>
+</body>
+</html>

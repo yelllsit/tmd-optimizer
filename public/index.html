@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
+    <title>TMD Opti</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- License Modal -->
+    <div id="licenseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>TMD Opti</h2>
+                <p class="subtitle">Video Optimizer</p>
+            </div>
+
+            <div class="license-form">
+                <h3>Enter License Key</h3>
+                <input type="text" id="licenseInput" placeholder="XXXX-XXXX-XXXX-XXXX" class="license-input">
+                <button id="validateBtn" class="btn btn-primary">Activate License</button>
+                <div id="licenseMessage" class="message"></div>
+
+                <button id="buyLicenseBtn" class="btn btn-secondary" style="margin-top: 16px;">
+                    💎 Buy License Key
+                </button>
+
+                <div class="divider">OR</div>
+
+                <h3>Generate Demo License</h3>
+                <p class="info-text">1 Day trial - For testing purposes only</p>
+                <input type="email" id="emailInput" placeholder="your@email.com" class="license-input">
+                <button id="generateBtn" class="btn btn-secondary">Generate 1-Day Demo License</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="mainApp" class="hidden">
+        <header class="app-header">
+            <h1>TMD Opti</h1>
+            <div class="license-info">
+                <span id="licenseStatus"></span>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <!-- Upload Section -->
+            <section class="upload-section">
+                <div class="drop-zone" id="dropZone">
+                    <div class="drop-zone-content">
+                        <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        <h2>Drop videos here or click to browse</h2>
+                        <p>Supports MP4, MOV, AVI, MKV, WebM, FLV</p>
+                        <button class="btn btn-primary" id="browseBtn">Browse Files</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section class="settings-section">
+                <h2>Optimization Settings</h2>
+
+                <div class="preset-selector">
+                    <label>Video Orientation:</label>
+                    <div class="preset-options">
+                        <button class="preset-btn active" data-preset="horizontal">
+                            <svg class="orientation-icon" viewBox="0 0 100 60" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="96" height="56" rx="4"/>
+                                <line x1="20" y1="30" x2="80" y2="30"/>
+                                <line x1="50" y1="15" x2="50" y2="45"/>
+                            </svg>
+                            <div class="preset-name">Horizontal</div>
+                            <div class="preset-desc">1440 × 1080</div>
+                        </button>
+                        <button class="preset-btn" data-preset="vertical">
+                            <svg class="orientation-icon" viewBox="0 0 60 100" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="56" height="96" rx="4"/>
+                                <line x1="30" y1="20" x2="30" y2="80"/>
+                                <line x1="15" y1="50" x2="45" y2="50"/>
+                            </svg>
+                            <div class="preset-name">Vertical</div>
+                            <div class="preset-desc">1080 × 1440</div>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="output-dir">
+                    <label>Output Directory:</label>
+                    <div class="dir-selector">
+                        <input type="text" id="outputDir" readonly placeholder="Select output folder">
+                        <button class="btn btn-secondary" id="selectDirBtn">Browse</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Files List -->
+            <section class="files-section">
+                <h2>Video Queue <span id="fileCount">(0)</span></h2>
+                <div id="filesList" class="files-list"></div>
+            </section>
+
+            <!-- Process Button -->
+            <div class="action-bar">
+                <button class="btn btn-primary btn-large" id="processBtn" disabled>
+                    Process Videos
+                </button>
+                <button class="btn btn-secondary" id="clearBtn">Clear Queue</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
