@@ -1,0 +1,47 @@
+===================================================
+  CARA INSTALL CONFIG - APEX LEGENDS MOVEMENT
+===================================================
+
+LANGKAH 1 - Cari folder cfg Apex kamu:
+  C:\Users\[nama_user]\Saved Games\Respawn\Apex\local\
+
+LANGKAH 2 - Copy file autoexec.cfg ke folder tersebut
+
+LANGKAH 3 - Buka Apex, masuk ke Settings > Video
+  - Set FPS Max setinggi mungkin (144 / 240 / unlimited)
+  - FPS tinggi = tap strafe lebih konsisten
+
+LANGKAH 4 - Di Settings > Keyboard/Mouse
+  - Pastikan tidak ada conflict dengan bind scroll wheel
+
+LANGKAH 5 - Test di Firing Range dulu sebelum ranked!
+
+===================================================
+  PENJELASAN TIAP TEKNIK
+===================================================
+
+TRIPLE TAP STRAFE:
+  - Slide jump > di udara scroll down 3x cepat sambil gerak mouse
+  - Makin cepat scroll = makin tajam directional change
+
+SUPERGLIDE:
+  - Lari ke ledge > saat hampir selesai mantle, scroll UP
+  - Timing window = 0.1-0.15 detik (sangat sempit!)
+  - Latihan di firing range minimal 30 menit
+
+SUPERGLIDE REDIRECT:
+  - Superglide > langsung scroll DOWN + gerak mouse arah baru
+  - Butuh superglide konsisten dulu baru bisa redirect
+
+NEO STRAFE:
+  - Di udara: tap D > tap A > tap D cepat + scroll down + mouse
+  - Harus manual, tidak bisa di-bind via cfg
+
+===================================================
+  CATATAN
+===================================================
+- Config ini 100% menggunakan sistem game Apex sendiri
+- Tidak ada external software/AHK
+- Aman dari anti-cheat (EAC)
+- Superglide via cfg adalah fitur yang diketahui komunitas Apex
+===================================================
